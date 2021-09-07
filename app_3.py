@@ -26,10 +26,15 @@ pygame.display.set_caption('My Asteroids Game')
 bg = pygame.image.load(os.path.join('images', 'bg.jpg'))
 debris = pygame.image.load(os.path.join('images', 'debris2_brown.png'))
 ship = pygame.image.load(os.path.join('images', 'ship.png'))
+ship_moving = pygame.image.load(os.path.join('images', 'ship_thrusted.png'))
 
 ship_angle = 90
 ship_is_rotating = False
+ship_is_forward = False
 ship_direction = 0
+ship_x = Width / 2 - (ship.get_width() / 2)
+ship_y = Height / 2 - (ship.get_height() / 2)
+ship_speed = 0
 
 
 def rotate_image(image, angle):
@@ -43,20 +48,23 @@ def rotate_image(image, angle):
 
 # Draw game function
 def draw(canvas):
-    global Time
+    global Time, ship_is_forward
     canvas.fill(Black)
     canvas.blit(bg, (0, 0))
     canvas.blit(debris, (Time * .3, 0))
     canvas.blit(debris, (Time * .3 - Width, 0))
-
-    canvas.blit(rotate_image(ship, ship_angle), ((Width / 2 - (ship.get_width() / 2)), (Height / 2 - (ship.get_height() / 2))))
+    if ship_is_forward:
+        canvas.blit(rotate_image(ship_moving, ship_angle), (ship_x, ship_y))
+    else:
+        canvas.blit(rotate_image(ship, ship_angle), (ship_x, ship_y))
 
     Time += 2  # Code causing the debris to move
 
 
 # Handle Keyboard Input
 def handle_input():
-    global ship_angle, ship_direction, ship_is_rotating
+    global ship_angle, ship_direction, ship_is_rotating, ship_y, ship_x
+    global ship_is_forward, ship_speed
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -68,14 +76,26 @@ def handle_input():
             elif event.key == K_RIGHT:
                 ship_is_rotating = True
                 ship_direction = 1
+            elif event.key == K_UP:
+                ship_is_forward = True
+                ship_speed = 10
         elif event.type == KEYUP:
-            ship_is_rotating = False
+            if event.key == K_UP or event.key == K_DOWN:
+                ship_is_forward = False
+            else:
+                ship_is_rotating = False
 
     if ship_is_rotating:
         if ship_direction == 1:
             ship_angle -= 10
         else:
             ship_angle += 10
+
+    if ship_is_forward or ship_speed > 0:
+        ship_x += math.cos(math.radians(ship_angle)) * ship_speed
+        ship_y += -math.sin(math.radians(ship_angle)) * ship_speed
+        if not ship_is_forward:
+            ship_speed -= 0.3
 
 
 # Update Screen
@@ -93,5 +113,5 @@ def game_logic():
 while True:
     draw(window)
     handle_input()
-    # game_logic()
+    game_logic()
     update_screen()
