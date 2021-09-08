@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="321a24d0-a11d-443d-b4a8-67232caaf64e" name="Default Changelist" comment="added a rotate function and gave it an angle of 90 degrees">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_3.py" afterDir="false" />
+    <list default="true" id="321a24d0-a11d-443d-b4a8-67232caaf64e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app_4.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +45,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.app_3">
+  <component name="RunManager" selected="Python.app_4">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Asteroids" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,8 +134,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="app_4" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Asteroids" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app_4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app_4" />
         <item itemvalue="Python.app_3" />
         <item itemvalue="Python.app_2" />
         <item itemvalue="Python.app_1" />
@@ -156,7 +178,7 @@
       <updated>1630920818889</updated>
       <workItem from="1630920821279" duration="1091000" />
       <workItem from="1630922573206" duration="7810000" />
-      <workItem from="1631004179506" duration="6227000" />
+      <workItem from="1631004179506" duration="10282000" />
     </task>
     <task id="LOCAL-00001" summary="adding images and sounds">
       <created>1630921086795</created>
@@ -186,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630942278251</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Now the ship can move. And fire comes out when ever we move our ship. Brilliant">
+      <created>1631024848066</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1631024848066</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,12 +239,14 @@
     <MESSAGE value="Added the first python file (app) that just creates the environment with moving stones" />
     <MESSAGE value="added a ship and placed it at the absolute center" />
     <MESSAGE value="added a rotate function and gave it an angle of 90 degrees" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a rotate function and gave it an angle of 90 degrees" />
+    <MESSAGE value="Now the ship can move. And fire comes out when ever we move our ship. Brilliant" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now the ship can move. And fire comes out when ever we move our ship. Brilliant" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Asteroids$app.coverage" NAME="app Coverage Results" MODIFIED="1630924474663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Asteroids$app_1.coverage" NAME="app_1 Coverage Results" MODIFIED="1630942099459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Asteroids$app_3.coverage" NAME="app_3 Coverage Results" MODIFIED="1631024686112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Asteroids$app_4.coverage" NAME="app_4 Coverage Results" MODIFIED="1631100007102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Asteroids$app_2.coverage" NAME="app_2 Coverage Results" MODIFIED="1630943118798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
