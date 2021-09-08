@@ -42,12 +42,14 @@ ship_speed = 0
 asteroids_x = []
 asteroids_y = []
 no_asteroids = 5
-asteroids_angle = 90
-asteroids_speed = 10
+asteroids_angle = []
+asteroids_speed = []
 
 for i in range(0, no_asteroids):
     asteroids_x.append(randint(0, Width))
     asteroids_y.append(randint(0, Height))
+    asteroids_angle.append(randint(0, 365))
+    asteroids_speed.append(randint(1, 3))
 
 
 def rotate_image(image, angle):
@@ -124,8 +126,8 @@ def update_screen():
 # Game Logic
 def game_logic():
     for i in range(0, no_asteroids):
-        asteroids_x[i] += math.cos(math.radians(asteroids_angle)) * asteroids_speed
-        asteroids_y[i] += -math.sin(math.radians(asteroids_angle)) * asteroids_speed
+        asteroids_x[i] += math.cos(math.radians(asteroids_angle[i])) * asteroids_speed[i]
+        asteroids_y[i] += -math.sin(math.radians(asteroids_angle[i])) * asteroids_speed[i]
 
 
 # Pygame is like a running loop
