@@ -124,6 +124,15 @@ def update_screen():
 
 
 # Game Logic
+def isCollision(enemy_x, enemy_y, bullet_x, bullet_y):
+    distance = math.sqrt(math.pow(enemy_x - bullet_x, 2) + (math.pow(enemy_y - bullet_y, 2)))
+    if distance < 25:
+        print(distance)
+        return True
+    else:
+        return False
+
+
 def game_logic():
     for i in range(0, no_asteroids):
         asteroids_x[i] += math.cos(math.radians(asteroids_angle[i])) * asteroids_speed[i]
@@ -140,6 +149,10 @@ def game_logic():
 
         if asteroids_x[i] > Width:
             asteroids_x[i] = 0
+
+        if isCollision(ship_x, ship_y, asteroids_x[i], asteroids_y[i]):
+            print('Game Over')
+            exit()
 
 
 # Pygame is like a running loop
