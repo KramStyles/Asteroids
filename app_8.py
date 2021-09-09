@@ -30,7 +30,7 @@ debris = pygame.image.load(os.path.join('images', 'debris2_brown.png'))
 ship = pygame.image.load(os.path.join('images', 'ship.png'))
 ship_moving = pygame.image.load(os.path.join('images', 'ship_thrusted.png'))
 asteroids = pygame.image.load(os.path.join('images', 'asteroid.png'))
-shot = pygame.image.load(os.path.join('images', 'shot.png'))
+shot = pygame.image.load(os.path.join('images', 'shot1.png'))
 
 ship_angle = 90
 ship_is_rotating = False
@@ -140,9 +140,9 @@ def update_screen():
 
 
 # Game Logic
-def isCollision(enemy_x, enemy_y, bullet_x, bullet_y):
+def isCollision(enemy_x, enemy_y, bullet_x, bullet_y, dist=25):
     distance = math.sqrt(math.pow(enemy_x - bullet_x, 2) + (math.pow(enemy_y - bullet_y, 2)))
-    if distance < 25:
+    if distance < dist:
         print(distance)
         return True
     else:
@@ -175,6 +175,14 @@ def game_logic():
         if isCollision(ship_x, ship_y, asteroids_x[i], asteroids_y[i]):
             print('Game Over')
             exit()
+
+    for i in range(0, no_bullets):
+        for j in range(0, no_asteroids):
+            if isCollision(bullet_x[i], bullet_y[i], asteroids_x[j], asteroids_y[j], 50):
+                asteroids_x[j] = randint(0, Width)
+                asteroids_y[j] = randint(0, Height)
+                asteroids_angle[j] = randint(0, 365)
+
 
 
 # Pygame is like a running loop
