@@ -30,7 +30,7 @@ debris = pygame.image.load(os.path.join('images', 'debris2_brown.png'))
 ship = pygame.image.load(os.path.join('images', 'ship.png'))
 ship_moving = pygame.image.load(os.path.join('images', 'ship_thrusted.png'))
 asteroids = pygame.image.load(os.path.join('images', 'asteroid.png'))
-shot = pygame.image.load(os.path.join('images', 'shot.png'))
+shot = pygame.image.load(os.path.join('images', 'shot1.png'))
 
 ship_angle = 90
 ship_is_rotating = False
@@ -46,9 +46,10 @@ no_asteroids = 5
 asteroids_angle = []
 asteroids_speed = []
 
-bullet_x = 0
-bullet_y = 0
-bullet_angle = 0
+bullet_x = []
+bullet_y = []
+bullet_angle = []
+no_bullets = 0
 
 for i in range(0, no_asteroids):
     asteroids_x.append(randint(0, Width))
@@ -68,12 +69,15 @@ def rotate_image(image, angle):
 
 # Draw game function
 def draw(canvas):
-    global Time, ship_is_forward
+    global Time, ship_is_forward, bullet_x, bullet_y
     canvas.fill(Black)
     canvas.blit(bg, (0, 0))
     canvas.blit(debris, (Time * .3, 0))
     canvas.blit(debris, (Time * .3 - Width, 0))
-    canvas.blit(shot, (bullet_x, bullet_y))
+
+    
+    for i in range(0, no_bullets):
+        canvas.blit(shot, (bullet_x[i], bullet_y[i]))
 
     for i in range(0, no_asteroids):
         canvas.blit(rotate_image(asteroids, Time), (asteroids_x[i], asteroids_y[i]))
@@ -89,7 +93,7 @@ def draw(canvas):
 # Handle Keyboard Input
 def handle_input():
     global ship_angle, ship_direction, ship_is_rotating, ship_y, ship_x
-    global ship_is_forward, ship_speed
+    global ship_is_forward, ship_speed, bullet_x, bullet_y, bullet_angle, no_bullets
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -100,10 +104,15 @@ def handle_input():
                 ship_direction = 0
             elif event.key == K_RIGHT:
                 ship_is_rotating = True
-                ship_direction = 1
+                ship_direction = 1 
             elif event.key == K_UP:
                 ship_is_forward = True
                 ship_speed = 10
+            elif event.key == K_SPACE:
+                bullet_x.append(ship_x + 50)
+                bullet_y.append(ship_y + 50)
+                bullet_angle.append(ship_angle)
+                no_bullets += 1
         elif event.type == KEYUP:
             if event.key == K_UP or event.key == K_DOWN:
                 ship_is_forward = False
@@ -141,6 +150,12 @@ def isCollision(enemy_x, enemy_y, bullet_x, bullet_y):
 
 
 def game_logic():
+    global bullet_x, bullet_y, bullet_angle
+
+    for i in range(0, no_bullets): 
+        bullet_x[i] += math.cos(math.radians(bullet_angle[i])) * 10
+        bullet_y[i] += -math.sin(math.radians(bullet_angle[i])) * 10
+
     for i in range(0, no_asteroids):
         asteroids_x[i] += math.cos(math.radians(asteroids_angle[i])) * asteroids_speed[i]
         asteroids_y[i] += -math.sin(math.radians(asteroids_angle[i])) * asteroids_speed[i]
