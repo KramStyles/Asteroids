@@ -50,6 +50,28 @@ bullet_x = []
 bullet_y = []
 bullet_angle = []
 no_bullets = 0
+score = 0
+game_over = False
+
+# SOUNDS
+# Missile Sound
+missile_sound = pygame.mixer.Sound(os.path.join('sounds', 'missile.mp3'))
+missile_sound.set_volume(1)
+
+#Thrust Sound
+thrust_sound = pygame.mixer.Sound(os.path.join('sounds', 'thrust.ogg'))
+thrust_sound.set_volume(1)
+
+#Explosion Sound
+explosion = pygame.mixer.Sound(os.path.join('sounds', 'explosion.ogg'))
+explosion.set_volume(1)
+
+#Background Sound
+bg_sound = pygame.mixer.music
+bg_sound.load(os.path.join('sounds', 'game.ogg'))
+bg_sound.set_volume(0.3)
+bg_sound.play(loops=True)
+
 
 for i in range(0, no_asteroids):
     asteroids_x.append(randint(0, Width))
@@ -75,7 +97,6 @@ def draw(canvas):
     canvas.blit(debris, (Time * .3, 0))
     canvas.blit(debris, (Time * .3 - Width, 0))
 
-    
     for i in range(0, no_bullets):
         canvas.blit(shot, (bullet_x[i], bullet_y[i]))
 
@@ -86,6 +107,17 @@ def draw(canvas):
         canvas.blit(rotate_image(ship_moving, ship_angle), (ship_x, ship_y))
     else:
         canvas.blit(rotate_image(ship, ship_angle), (ship_x, ship_y))
+
+    # Draw Score
+    # font1 = pygame.font.SysFont("Edge of Madness", 25)
+    font1 = pygame.font.Font(os.path.join("fonts", 'Edge Of Madness.ttf'), 25)
+    label1 = font1.render(f"Score: {score}", 1, White)
+    canvas.blit(label1, (50, 20))
+
+    if game_over:
+        font2 = pygame.font.Font(os.path.join("fonts", "Edge of Madness.ttf"), 80)
+        label2 = font2.render("Game Over", 1, Blue)
+        canvas.blit(label2, (Width/2 - 220, Height/2 - 50))
 
     Time += 2  # Code causing the debris to move
 
@@ -104,18 +136,21 @@ def handle_input():
                 ship_direction = 0
             elif event.key == K_RIGHT:
                 ship_is_rotating = True
-                ship_direction = 1 
+                ship_direction = 1
             elif event.key == K_UP:
                 ship_is_forward = True
+                thrust_sound.play()
                 ship_speed = 10
             elif event.key == K_SPACE:
                 bullet_x.append(ship_x + 50)
                 bullet_y.append(ship_y + 50)
                 bullet_angle.append(ship_angle)
                 no_bullets += 1
+                missile_sound.play()
         elif event.type == KEYUP:
             if event.key == K_UP or event.key == K_DOWN:
                 ship_is_forward = False
+                thrust_sound.stop()
             else:
                 ship_is_rotating = False
 
@@ -150,9 +185,9 @@ def isCollision(enemy_x, enemy_y, bullet_x, bullet_y, dist=25):
 
 
 def game_logic():
-    global bullet_x, bullet_y, bullet_angle
+    global bullet_x, bullet_y, bullet_angle, score, game_over
 
-    for i in range(0, no_bullets): 
+    for i in range(0, no_bullets):
         bullet_x[i] += math.cos(math.radians(bullet_angle[i])) * 10
         bullet_y[i] += -math.sin(math.radians(bullet_angle[i])) * 10
 
@@ -174,7 +209,8 @@ def game_logic():
 
         if isCollision(ship_x, ship_y, asteroids_x[i], asteroids_y[i]):
             print('Game Over')
-            exit()
+            game_over = True
+            # exit()
 
     for i in range(0, no_bullets):
         for j in range(0, no_asteroids):
@@ -182,12 +218,14 @@ def game_logic():
                 asteroids_x[j] = randint(0, Width)
                 asteroids_y[j] = randint(0, Height)
                 asteroids_angle[j] = randint(0, 365)
-
+                explosion.play()
+                score += 1
 
 
 # Pygame is like a running loop
 while True:
     draw(window)
     handle_input()
-    game_logic()
+    if not game_over:
+        game_logic()
     update_screen()
